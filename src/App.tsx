@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { SportsMoment } from "./components/SportsMoment";
 
 const FB_MY = "https://www.facebook.com/profile.php?id=61584225863316";
 const FB_SG = "https://www.facebook.com/profile.php?id=61584669658907";
