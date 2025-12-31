@@ -1,76 +1,60 @@
-
-import React, { useState, useEffect } from 'react';
-import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { FootballShowcase } from './components/FootballShowcase';
-import { TrustSection } from './components/TrustSection';
-import { FlowSection } from './components/FlowSection';
-import { PromoSection } from './components/PromoSection';
-import { OfficialLinks } from './components/OfficialLinks';
-import { Footer } from './components/Footer';
-import { ParticleBackground } from './components/ParticleBackground';
-
-
-const App: React.FC = () => {
-  const [activeSection, setActiveSection] = useState('hero');
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = ['hero', 'showcase', 'safety', 'how-it-works', 'promos', 'official'];
-      const scrollPosition = window.scrollY + 100;
-
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const offsetTop = element.offsetTop;
-          const offsetHeight = element.offsetHeight;
-
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section);
-          }
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
+export default function App() {
   return (
-    <div className="relative min-h-screen">
-      <ParticleBackground />
-      <ToastContainer />
-      <Navbar activeSection={activeSection} />
-      
-      <main>
-        <section id="hero">
-          <Hero />
-        </section>
-        
-        <section id="showcase">
-          <FootballShowcase />
-        </section>
-        
-        <section id="safety">
-          <TrustSection />
-        </section>
-        
-        <section id="how-it-works">
-          <FlowSection />
-        </section>
-        
-        <section id="promos">
-          <PromoSection />
-        </section>
-        
-        <section id="official">
-          <OfficialLinks />
-        </section>
-      </main>
-      
-      <Footer />
+    <div
+      style={{
+        minHeight: "100vh",
+        padding: 40,
+        background: "#06152c",
+        color: "white",
+        fontFamily: "system-ui, -apple-system, Segoe UI, Roboto, Arial",
+      }}
+    >
+      <h1 style={{ fontSize: 56, margin: 0 }}>i88</h1>
+      <p style={{ marginTop: 12, fontSize: 18, maxWidth: 720, lineHeight: 1.5 }}>
+        Founded in 2016. Over 500k users across Malaysia &amp; Singapore.
+        <br />
+        Smooth deposit &amp; withdrawal. Try out and see see.
+      </p>
+
+      <div style={{ display: "flex", gap: 12, marginTop: 20, flexWrap: "wrap" }}>
+        <a
+          href="https://www.facebook.com/profile.php?id=61584225863316"
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            padding: "12px 16px",
+            borderRadius: 12,
+            background: "rgba(0,140,255,0.22)",
+            border: "1px solid rgba(0,140,255,0.55)",
+            color: "white",
+            textDecoration: "none",
+            fontWeight: 700,
+          }}
+        >
+          i88 MY Official
+        </a>
+
+        <a
+          href="https://www.facebook.com/profile.php?id=61584669658907"
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            padding: "12px 16px",
+            borderRadius: 12,
+            background: "rgba(0,140,255,0.22)",
+            border: "1px solid rgba(0,140,255,0.55)",
+            color: "white",
+            textDecoration: "none",
+            fontWeight: 700,
+          }}
+        >
+          i88 SG Official
+        </a>
+      </div>
+
+      <p style={{ marginTop: 18, opacity: 0.8 }}>
+        If you can see this page, your deployment is fine. Your fancy components were crashing or hidden.
+      </p>
     </div>
   );
-};
-
-export default App;
+}
