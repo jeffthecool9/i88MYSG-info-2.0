@@ -1,57 +1,56 @@
+import React, { createContext, useCallback, useContext, useMemo, useState } from "react";
 
-import React, { createContext, useContext, useState, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle2, X } from 'lucide-react';
+type ToastItem = { id: string; title: string; message?: string };
 
-interface ToastContextType {
-  addToast: (message: string) => void;
-}
-
-const ToastContext = createContext<ToastContextType | undefined>(undefined);
-
-export const useToast = () => {
-  const context = useContext(ToastContext);
-  if (!context) throw new Error("useToast must be used within ToastProvider");
-  return context;
+type ToastContextValue = {
+  toast: (t: Omit<ToastItem, "id">) => void;
 };
 
-export const ToastContainer: React.FC = () => {
-  const [toasts, setToasts] = useState<{ id: number; message: string }[]>([]);
+const ToastContext = createContext<ToastContextValue | null>(null);
 
-  const addToast = useCallback((message: string) => {
-    const id = Date.now();
-    setToasts((prev) => [...prev, { id, message }]);
-    setTimeout(() => {
-      setToasts((prev) => prev.filter((t) => t.id !== id));
-    }, 3000);
+export function ToastProvider({ children }: { children: React.ReactNode }) {
+  const [items, setItems] = useState<ToastItem[]>([]);
+
+  const toast = useCallback((t: Omit<ToastItem, "id">) => {
+    const id = crypto.randomUUID();
+    const item: ToastItem = { id, ...t };
+    setItems((prev) => [...prev, item]);
+
+    window.setTimeout(() => {
+      setItems((prev) => prev.filter((x) => x.id !== id));
+    }, 2200);
   }, []);
 
+  const value = useMemo(() => ({ toast }), [toast]);
+
   return (
-    <ToastContext.Provider value={{ addToast }}>
-      <div className="fixed bottom-10 right-10 z-[200] flex flex-col gap-4">
-        <AnimatePresence>
-          {toasts.map((toast) => (
-            <motion.div
-              key={toast.id}
-              initial={{ opacity: 0, x: 50, scale: 0.9 }}
-              animate={{ opacity: 1, x: 0, scale: 1 }}
-              exit={{ opacity: 0, x: 20, scale: 0.9 }}
-              className="glass px-6 py-4 rounded-2xl flex items-center gap-4 border border-blue-500/30 shadow-2xl"
-            >
-              <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white">
-                <CheckCircle2 size={18} />
-              </div>
-              <span className="font-bold text-sm">{toast.message}</span>
-              <button 
-                onClick={() => setToasts(prev => prev.filter(t => t.id !== toast.id))}
-                className="ml-4 text-slate-500 hover:text-white"
-              >
-                <X size={14} />
-              </button>
-            </motion.div>
-          ))}
-        </AnimatePresence>
+    <ToastContext.Provider value={value}>
+      {children}
+      <div style={{ position: "fixed", right: 16, bottom: 16, display: "grid", gap: 10, zIndex: 9999 }}>
+        {items.map((t) => (
+          <div
+            key={t.id}
+            style={{
+              width: 320,
+              borderRadius: 14,
+              padding: 12,
+              background: "rgba(10,20,40,0.92)",
+              color: "white",
+              border: "1px solid rgba(255,255,255,0.12)",
+              boxShadow: "0 10px 30px rgba(0,0,0,0.35)",
+            }}
+          >
+            <div style={{ fontWeight: 700 }}>{t.title}</div>
+            {t.message ? <div style={{ marginTop: 4, opacity: 0.9 }}>{t.message}</div> : null}
+          </div>
+        ))}
       </div>
     </ToastContext.Provider>
   );
-};
+}
+
+export function useToast() {
+  const ctx = useContext(ToastContext);
+  if (!ctx) throw new Error("useToast must be used within ToastProvider");
+  return ctx;
+}
