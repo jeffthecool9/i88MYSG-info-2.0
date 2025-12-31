@@ -106,4 +106,124 @@ export default function App() {
               <motion.div
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition=
+                transition={{ delay: 0.14, duration: 0.85, ease: easeOut }}
+                className="relative overflow-hidden rounded-3xl bg-white/5 ring-1 ring-white/12"
+              >
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_35%_25%,rgba(30,160,255,0.22),transparent_60%),radial-gradient(circle_at_78%_70%,rgba(0,102,255,0.18),transparent_54%)]" />
+
+                <div className="relative p-8 sm:p-10">
+                  <div className="flex items-center justify-between">
+                    <div className="text-sm font-semibold text-white/80">
+                      Sports Mode
+                    </div>
+                    <div className="text-xs text-white/60">
+                      Clean • Fast • Official
+                    </div>
+                  </div>
+
+                  <div className="mt-8 rounded-2xl bg-white/5 p-6 ring-1 ring-white/10">
+                    <div className="text-xs text-white/65">Quick summary</div>
+                    <div className="mt-2 text-2xl font-extrabold">
+                      Built for MY &amp; SG
+                    </div>
+                    <div className="mt-2 text-sm text-white/70">
+                      Sports-first look. Simple UI. Easy to follow.
+                    </div>
+
+                    <div className="mt-5 h-2 w-full rounded-full bg-white/10 overflow-hidden">
+                      <motion.div
+                        className="h-full w-1/3 rounded-full bg-gradient-to-r from-sky-300 to-blue-500"
+                        animate={{ x: ["-40%", "240%"] }}
+                        transition={{ duration: 2.6, repeat: Infinity, ease: "linear" }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mt-6 grid grid-cols-3 gap-3 text-xs text-white/70">
+                    <div className="rounded-xl bg-white/5 p-3 ring-1 ring-white/10">
+                      <div className="text-base font-extrabold text-white">2016</div>
+                      <div className="mt-1 text-white/60">Founded</div>
+                    </div>
+                    <div className="rounded-xl bg-white/5 p-3 ring-1 ring-white/10">
+                      <div className="text-base font-extrabold text-white">500k+</div>
+                      <div className="mt-1 text-white/60">Users</div>
+                    </div>
+                    <div className="rounded-xl bg-white/5 p-3 ring-1 ring-white/10">
+                      <div className="text-base font-extrabold text-white">MY/SG</div>
+                      <div className="mt-1 text-white/60">Markets</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pointer-events-none absolute -right-24 -top-10 h-[420px] w-[420px] rounded-full border border-white/10 opacity-60" />
+                <div className="pointer-events-none absolute -right-10 top-28 h-[320px] w-[320px] rounded-full border border-white/8 opacity-50" />
+              </motion.div>
+            </div>
+          </div>
+        </main>
+
+        {/* Placeholder sections (we will fill later) */}
+        <section className="py-16">
+          <div className="rounded-3xl bg-white/4 ring-1 ring-white/10 p-8">
+            <div className="text-sm text-white/65">Next:</div>
+            <div className="mt-2 text-2xl font-extrabold">Sports moment section</div>
+            <p className="mt-2 text-white/70">
+              We’ll add the full sports image section + 3 “Why us?” carousel next.
+            </p>
+          </div>
+        </section>
+
+        {/* BOTTOM CTA (MOST BOTTOM) */}
+        <footer className="pb-20">
+          <div className="rounded-3xl bg-white/6 ring-1 ring-white/12 p-8 sm:p-10">
+            <div className="flex items-start justify-between gap-6 flex-wrap">
+              <div>
+                <div className="text-xs font-semibold text-white/70">OFFICIAL LINKS</div>
+                <div className="mt-2 text-3xl font-extrabold">
+                  Choose your official page
+                </div>
+                <p className="mt-2 text-white/70 max-w-xl">
+                  If it’s not one of these buttons, it’s not us. Simple.
+                </p>
+              </div>
+
+              <div className="flex gap-4 flex-wrap">
+                <motion.a
+                  href={FB_MY}
+                  target="_blank"
+                  rel="noreferrer"
+                  whileHover={{ y: -3 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="group inline-flex items-center justify-center rounded-2xl bg-gradient-to-br from-sky-400 to-blue-600 px-6 py-4 font-bold shadow-[0_22px_70px_rgba(0,120,255,0.38)] ring-1 ring-white/10"
+                >
+                  i88 MY Official
+                  <span className="ml-2 opacity-85 transition-transform duration-200 group-hover:translate-x-0.5">
+                    →
+                  </span>
+                </motion.a>
+
+                <motion.a
+                  href={FB_SG}
+                  target="_blank"
+                  rel="noreferrer"
+                  whileHover={{ y: -3 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="group inline-flex items-center justify-center rounded-2xl bg-white/7 px-6 py-4 font-bold ring-1 ring-white/15 hover:bg-white/10"
+                >
+                  i88 SG Official
+                  <span className="ml-2 opacity-75 transition-transform duration-200 group-hover:translate-x-0.5">
+                    →
+                  </span>
+                </motion.a>
+              </div>
+            </div>
+
+            <div className="mt-6 text-xs text-white/55">
+              Reminder: Don’t share OTP / password. Official pages only.
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+  );
+}
