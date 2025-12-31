@@ -9,7 +9,7 @@ import { PromoSection } from './components/PromoSection';
 import { OfficialLinks } from './components/OfficialLinks';
 import { Footer } from './components/Footer';
 import { ParticleBackground } from './components/ParticleBackground';
-import { ToastContainer } from './components/Toast';
+
 
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState('hero');
